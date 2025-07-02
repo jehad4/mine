@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BANGLA HOST - Premium Minecraft Hosting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        /* Enhanced Minecraft-inspired CSS */
+        :root {
+            --mc-dark-green: #4a7a3e;
+            --mc-green: #5b9633;
+            --mc-light-green: #7bba3e;
+            --mc-brown: #8b6b3d;
+            --mc-dark-brown: #6a4f32;
+            --mc-black: #1a1a1a;
+            --mc-gray: #4a4a4a;
+            --mc-light-gray: #ababab;
+            --mc-white: #f0f0f0;
+            --mc-red: #ff5555;
+            --mc-blue: #5555ff;
+            --mc-gold: #ffaa00;
+            --mc-diamond: #55ffff;
+            --mc-emerald: #00ffaa;
+        }
+
+        /* Pixel font */
+        @font-face {
+            font-family: 'Minecraft';
+            src: url('https://assets.codepen.io/21542/MinecraftTen-VGORe.ttf') format('truetype');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Minecraft', Arial, sans-serif;
+            image-rendering: pixelated;
+        }
+
+        body {
+            background-color: var(--mc-black);
+            color: var(--mc-white);
+            line-height: 1.5;
+            /* Custom Minecraft-style background */
+            background-image: 
+                linear-gradient(rgba(26, 26, 26, 0.9), rgba(26, 26, 26, 0.9)),
+                /* Grid pattern */
+                linear-gradient(var(--mc-dark-brown) 1px, transparent 1px),
+                linear-gradient(90deg, var(--mc-dark-brown) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: center center;
+        }
+
+        /* Animated block pattern overlay */
+        .block-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                /* Grass blocks */
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><rect width="40" height="40" fill="%234a7a3e" opacity="0.05"/></svg>'),
+                /* Stone blocks */
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60"><rect width="60" height="60" fill="%234a4a4a" opacity="0.03"/></svg>'),
+                /* Dirt blocks */
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><rect width="80" height="80" fill="%238b6b3d" opacity="0.02"/></svg>');
+            background-size: 80px 80px, 120px 120px, 160px 160px;
+            background-position: 0 0, 30px 30px, 60px 60px;
+            animation: panBackground 60s linear infinite;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes panBackground {
+            0% { background-position: 0 0, 30px 30px, 60px 60px; }
+            100% { background-position: 800px 800px, 830px 830px, 860px 860px; }
+        }
+
+        /* Blocky container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Enhanced Pixel border effect */
+        .pixel-border {
+            border: 4px solid;
+            border-image: 
+                linear-gradient(
+                    to bottom right,
+                    var(--mc-brown) 0%,
+                    var(--mc-dark-brown) 25%,
+                    var(--mc-brown) 50%,
+                    var(--mc-dark-brown) 75%,
+                    var(--mc-brown) 100%
+                ) 1;
+            background-color: rgba(0, 0, 0, 0.85);
+            box-shadow: 0 0 0 4px var(--mc-dark-brown),
+                        0 0 0 8px var(--mc-brown),
+                        0 0 20px rgba(0, 0, 0, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .pixel-border:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5),
+                        0 0 0 4px var(--mc-dark-brown),
+                        0 0 0 8px var(--mc-brown);
+        }
+
+        /* Header/Navbar */
+        header {
+            background-color: rgba(74, 122, 62, 0.9);
+            padding: 15px 0;
+            border-bottom: 4px solid var(--mc-brown);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            color: var(--mc-light-green);
+            text-shadow: 4px 4px 0 var(--mc-dark-green),
+                        -1px -1px 0 var(--mc-dark-green),
+                        1px -1px 0 var(--mc-dark-green),
+                        -1px 1px 0 var(--mc-dark-green),
+                        1px 1px 0 var(--mc-dark-green),
+                        0 0 10px rgba(123, 186, 62, 0.5);
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            text-shadow: 4px 4px 0 var(--mc-dark-green),
+                        -1px -1px 0 var(--mc-dark-green),
+                        1px -1px 0 var(--mc-dark-green),
+                        -1px 1px 0 var(--mc-dark-green),
+                        1px 1px 0 var(--mc-dark-green),
+                        0 0 20px rgba(123, 186, 62, 0.8);
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--mc-white);
+            text-decoration: none;
+            padding: 8px 15px;
+            background-color: var(--mc-brown);
+            border: 2px solid var(--mc-dark-brown);
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a:hover {
+            background-color: var(--mc-dark-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        nav a:hover::after {
+            left: 100%;
+        }
+
+        /* Main content */
+        main {
+            margin-top: 120px;
+            padding: 20px 0;
+        }
+
+        /* Hero section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            background: 
+                linear-gradient(135deg, rgba(74, 122, 62, 0.3) 0%, rgba(26, 26, 26, 0.7) 100%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%234a7a3e" opacity="0.1"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--mc-light-green);
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0 var(--mc-dark-green),
+                        0 0 20px rgba(123, 186, 62, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 0 var(--mc-black);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: var(--mc-green);
+            color: var(--mc-white);
+            text-decoration: none;
+            border: 3px solid var(--mc-dark-green);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 4px 4px 0 var(--mc-dark-green),
+                       0 0 10px rgba(91, 150, 51, 0.5);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn:hover {
+            background-color: var(--mc-light-green);
+            transform: translateY(-3px);
+            box-shadow: 6px 6px 0 var(--mc-dark-green),
+                       0 0 20px rgba(123, 186, 62, 0.8);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-premium {
+            background-color: var(--mc-gold);
+            border-color: #cc8800;
+            box-shadow: 4px 4px 0 #cc8800,
+                       0 0 10px rgba(255, 170, 0, 0.5);
+        }
+
+        .btn-premium:hover {
+            background-color: #ffcc00;
+            box-shadow: 6px 6px 0 #cc8800,
+                       0 0 20px rgba(255, 204, 0, 0.8);
+        }
+
+        /* Pricing section */
+        .pricing {
+            margin: 40px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--mc-light-green);
+            text-shadow: 3px 3px 0 var(--mc-dark-green),
+                        0 0 10px rgba(123, 186, 62, 0.5);
+            display: inline-block;
+            padding: 0 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 3px solid var(--mc-dark-brown);
+            box-shadow: 0 0 0 3px var(--mc-brown);
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 30%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--mc-brown), var(--mc-dark-brown));
+        }
+
+        .section-title::before {
+            left: 0;
+        }
+
+        .section-title::after {
+            right: 0;
+        }
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .plan {
+            padding: 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .plan:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .plan h3 {
+            font-size: 1.8rem;
+            color: var(--mc-light-green);
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 2px 2px 0 var(--mc-dark-green);
+        }
+
+        .plan.premium h3 {
+            color: var(--mc-gold);
+            text-shadow: 2px 2px 0 #cc8800;
+        }
+
+        .plan .price {
+            font-size: 1.5rem;
+            color: var(--mc-white);
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--mc-dark-brown);
+            border-radius: 5px;
+        }
+
+        .plan.premium .price {
+            color: var(--mc-gold);
+            border-color: #cc8800;
+        }
+
+        .plan ul {
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        .plan li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 30px;
+            transition: all 0.3s;
+        }
+
+        .plan li:hover {
+            transform: translateX(5px);
+        }
+
+        .plan li:before {
+            content: "■";
+            color: var(--mc-green);
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+
+        .plan.premium li:before {
+            color: var(--mc-gold);
+        }
+
+        .plan .btn {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--mc-gold);
+            color: var(--mc-black);
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transform: rotate(15deg);
+            box-shadow: 2px 2px 0 #cc8800;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: rotate(15deg) translateY(0); }
+            50% { transform: rotate(15deg) translateY(-5px); }
+        }
+
+        /* Plan images */
+        .plan-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--mc-dark-brown);
+            transition: all 0.3s;
+            filter: brightness(0.9);
+        }
+
+        .plan:hover .plan-image {
+            filter: brightness(1.1);
+            transform: scale(1.02);
+        }
+
+        /* Features section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 2px solid var(--mc-dark-brown);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .feature-item:hover {
+            background-color: rgba(74, 122, 62, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-item h3 {
+            color: var(--mc-light-green);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .feature-item p {
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(74, 122, 62, 0.9);
+            padding: 30px 0;
+            text-align: center;
+            border-top: 4px solid var(--mc-brown);
+            margin-top: 40px;
+            backdrop-filter: blur(5px);
+        }
+
+        footer p {
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: var(--mc-blue);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--mc-diamond);
+            text-decoration: underline;
+        }
+
+        /* Floating Minecraft blocks */
+        .minecraft-block {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            background-size: cover;
+            z-index: -1;
+            opacity: 0.1;
+            animation: floatBlock linear infinite;
+        }
+
+        @keyframes floatBlock {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.1; }
+            90% { opacity: 0.1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--mc-green);
+            border: 2px solid var(--mc-dark-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.3s;
+            z-index: 999;
+            box-shadow: 0 0 10px rgba(91, 150, 51, 0.5);
+        }
+
+        .scroll-indicator.visible {
+            opacity: 1;
+        }
+
+        .scroll-indicator:hover {
+            background-color: var(--mc-light-green);
+            transform: scale(1.1);
+        }
+
+        .scroll-indicator::before {
+            content: '↑';
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            .plans {
+                grid-template-columns: 1fr;
+            }
+
+            main {
+                margin-top: 150px;
+            }
+
+            .section-title::before,
+            .section-title::after {
+                width: 20%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 30px 15px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+
+            .section-title::before,
+            .section-title::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Minecraft-style background -->
+    <div class="block-pattern"></div>
+    
+    <!-- Floating Minecraft blocks -->
+    <div id="minecraftBlocks"></div>
+
+    <!-- Scroll to top button -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <header class="pixel-border">
+        <div class="container">
+            <div class="logo">BANGLA HOST</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#plans">Plans</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="https://discord.gg/HPWHYdBvm3" target="_blank">Discord</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section id="home" class="hero pixel-border animate__animated animate__fadeIn">
+            <div class="hero-content">
+                <h1>PREMIUM MINECRAFT HOSTING</h1>
+                <p>High-performance servers with unbeatable prices</p>
+                <div>
+                    <a href="#plans" class="btn">VIEW PLANS</a>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn btn-premium" target="_blank">JOIN DISCORD</a>
+                </div>
+            </div>
+        </section>
+      
+        <section id="plans" class="pricing">
+            <div class="section-title">
+                <h2>BASIC PLANS</h2>
+            </div>
+            
+            <div class="plans">
+                <!-- Cow Plan -->
+                <div class="plan pixel-border animate__animated animate__fadeInUp" style="animation-delay: 0.1s">
+                    <img src="https://i.imgur.com/2c0YwXV.jpeg" alt="Cow Plan" class="plan-image">
+                    <h3>COW PLAN</h3>
+                    <div class="price">$1.31/mo | ৳160/mo</div>
+                    <ul>
+                        <li>2GB RAM</li>
+                        <li>1v CORE</li>
+                        <li>5GB DISK</li>
+                        <li>2 DATABASE</li>
+                        <li>1 BACKUP</li>
+                        <li>2 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn" target="_blank">ORDER NOW</a>
+                </div>
+                
+                <!-- Donkey Plan -->
+                <div class="plan pixel-border animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
+                    <img src="https://i.imgur.com/uywNdB6.png" alt="Donkey Plan" class="plan-image">
+                    <h3>DONKEY PLAN</h3>
+                    <div class="price">$2.61/mo | ৳320/mo</div>
+                    <ul>
+                        <li>4GB RAM</li>
+                        <li>3v CORE</li>
+                        <li>15GB DISK</li>
+                        <li>3 DATABASE</li>
+                        <li>2 BACKUP</li>
+                        <li>3 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn" target="_blank">ORDER NOW</a>
+                </div>
+                
+                <!-- Allay Plan -->
+                <div class="plan pixel-border animate__animated animate__fadeInUp" style="animation-delay: 0.3s">
+                    <img src="https://i.imgur.com/30LOYMU.png" alt="Allay Plan" class="plan-image">
+                    <h3>ALLAY PLAN</h3>
+                    <div class="price">$3.27/mo | ৳400/mo</div>
+                    <ul>
+                        <li>5GB RAM</li>
+                        <li>3v CORE</li>
+                        <li>20GB DISK</li>
+                        <li>4 DATABASE</li>
+                        <li>3 BACKUP</li>
+                        <li>4 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn" target="_blank">ORDER NOW</a>
+                </div>
+            </div>
+            
+            <div class="plans">
+                <!-- Armadillo Plan -->
+                <div class="plan pixel-border animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
+                    <img src="https://i.imgur.com/pvk3MfF.png" alt="Armadillo Plan" class="plan-image">
+                    <h3>ARMADILLO PLAN</h3>
+                    <div class="price">$3.92/mo | ৳480/mo</div>
+                    <ul>
+                        <li>6GB RAM</li>
+                        <li>4v CORE</li>
+                        <li>20GB DISK</li>
+                        <li>5 DATABASE</li>
+                        <li>4 BACKUP</li>
+                        <li>5 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn" target="_blank">ORDER NOW</a>
+                </div>
+                
+                <!-- Bee Plan -->
+                <div class="plan pixel-border animate__animated animate__fadeInUp" style="animation-delay: 0.5s">
+                    <img src="https://i.imgur.com/pBRTDuB.png" alt="Bee Plan" class="plan-image">
+                    <h3>BEE PLAN</h3>
+                    <div class="price">$5.23/mo | ৳640/mo</div>
+                    <ul>
+                        <li>8GB RAM</li>
+                        <li>5v CORE</li>
+                        <li>25GB DISK</li>
+                        <li>6 DATABASE</li>
+                        <li>5 BACKUP</li>
+                        <li>6 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn" target="_blank">ORDER NOW</a>
+                </div>
+                
+                <!-- Warden Plan -->
+                <div class="plan pixel-border animate__animated animate__fadeInUp" style="animation-delay: 0.6s">
+                    <img src="https://i.imgur.com/iGyRvtp.png" alt="Warden Plan" class="plan-image">
+                    <h3>WARDEN PLAN</h3>
+                    <div class="price">$7.90/mo | ৳960/mo</div>
+                    <ul>
+                        <li>12GB RAM</li>
+                        <li>7v CORE</li>
+                        <li>40GB DISK</li>
+                        <li>7 DATABASE</li>
+                        <li>6 BACKUP</li>
+                        <li>7 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn" target="_blank">ORDER NOW</a>
+                </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 60px;">
+                <h2>PREMIUM PLANS</h2>
+            </div>
+            
+            <div class="plans">
+                <!-- Dirt Plan -->
+                <div class="plan pixel-border premium animate__animated animate__fadeInUp" style="animation-delay: 0.1s">
+                    <div class="premium-badge">PREMIUM</div>
+                    <img src="https://i.imgur.com/kVKfTzn.png" alt="Dirt Plan" class="plan-image">
+                    <h3>DIRT PLAN</h3>
+                    <div class="price">$1.98/mo | ৳240/mo</div>
+                    <ul>
+                        <li>2GB RAM</li>
+                        <li>1v CORE</li>
+                        <li>5GB DISK</li>
+                        <li>2 DATABASE</li>
+                        <li>1 BACKUP</li>
+                        <li>2 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn btn-premium" target="_blank">ORDER NOW</a>
+                </div>
+                
+                <!-- Stone Plan -->
+                <div class="plan pixel-border premium animate__animated animate__fadeInUp" style="animation-delay: 0.2s">
+                    <div class="premium-badge">PREMIUM</div>
+                    <img src="https://i.imgur.com/qEILdXV.png" alt="Stone Plan" class="plan-image">
+                    <h3>STONE PLAN</h3>
+                    <div class="price">$3.95/mo | ৳480/mo</div>
+                    <ul>
+                        <li>4GB RAM</li>
+                        <li>3v CORE</li>
+                        <li>15GB DISK</li>
+                        <li>3 DATABASE</li>
+                        <li>2 BACKUP</li>
+                        <li>3 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn btn-premium" target="_blank">ORDER NOW</a>
+                </div>
+                
+                <!-- Iron Plan -->
+                <div class="plan pixel-border premium animate__animated animate__fadeInUp" style="animation-delay: 0.3s">
+                    <div class="premium-badge">PREMIUM</div>
+                    <img src="https://i.imgur.com/5kGyR5L.png" alt="Iron Plan" class="plan-image">
+                    <h3>IRON PLAN</h3>
+                    <div class="price">$5.93/mo | ৳720/mo</div>
+                    <ul>
+                        <li>6GB RAM</li>
+                        <li>4v CORE</li>
+                        <li>20GB DISK</li>
+                        <li>5 DATABASE</li>
+                        <li>4 BACKUP</li>
+                        <li>5 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn btn-premium" target="_blank">ORDER NOW</a>
+                </div>
+            </div>
+            
+            <div class="plans">
+                <!-- Gold Plan -->
+                <div class="plan pixel-border premium animate__animated animate__fadeInUp" style="animation-delay: 0.4s">
+                    <div class="premium-badge">PREMIUM</div>
+                    <img src="https://i.imgur.com/X5NBazk.png" alt="Gold Plan" class="plan-image">
+                    <h3>GOLD PLAN</h3>
+                    <div class="price">$7.93/mo | ৳960/mo</div>
+                    <ul>
+                        <li>8GB RAM</li>
+                        <li>5v CORE</li>
+                        <li>25GB DISK</li>
+                        <li>6 DATABASE</li>
+                        <li>5 BACKUP</li>
+                        <li>6 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn btn-premium" target="_blank">ORDER NOW</a>
+                </div>
+                
+                <!-- Diamond Plan -->
+                <div class="plan pixel-border premium animate__animated animate__fadeInUp" style="animation-delay: 0.5s">
+                    <div class="premium-badge">PREMIUM</div>
+                    <img src="https://i.imgur.com/UNyYIS4.png" alt="Diamond Plan" class="plan-image">
+                    <h3>DIAMOND PLAN</h3>
+                    <div class="price">$9.91/mo | ৳1200/mo</div>
+                    <ul>
+                        <li>10GB RAM</li>
+                        <li>6v CORE</li>
+                        <li>30GB DISK</li>
+                        <li>7 DATABASE</li>
+                        <li>5 BACKUP</li>
+                        <li>7 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn btn-premium" target="_blank">ORDER NOW</a>
+                </div>
+                
+                <!-- Netherite Plan -->
+                <div class="plan pixel-border premium animate__animated animate__fadeInUp" style="animation-delay: 0.6s">
+                    <div class="premium-badge">PREMIUM</div>
+                    <img src="https://i.imgur.com/qe4vRlg.png" alt="Netherite Plan" class="plan-image">
+                    <h3>NETHERITE PLAN</h3>
+                    <div class="price">$11.89/mo | ৳1440/mo</div>
+                    <ul>
+                        <li>12GB RAM</li>
+                        <li>7v CORE</li>
+                        <li>40GB DISK</li>
+                        <li>7 DATABASE</li>
+                        <li>6 BACKUP</li>
+                        <li>7 ALLOCATION</li>
+                    </ul>
+                    <a href="https://discord.gg/HPWHYdBvm3" class="btn btn-premium" target="_blank">ORDER NOW</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="pixel-border animate__animated animate__fadeIn" style="padding: 30px; margin: 40px 0;">
+            <div class="section-title">
+                <h2>WHY CHOOSE US?</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3><span>⚡</span> FAST SERVERS</h3>
+                    <p>High-performance hardware for lag-free gameplay with 99.9% uptime</p>
+                </div>
+                <div class="feature-item">
+                    <h3><span>🛡️</span> DDoS PROTECTION</h3>
+                    <p>Advanced protection against attacks to keep your server online</p>
+                </div>
+                <div class="feature-item">
+                    <h3><span>📱</span> 24/7 SUPPORT</h3>
+                    <p>Help available anytime via Discord with fast response times</p>
+                </div>
+                <div class="feature-item">
+                    <h3><span>🔧</span> EASY SETUP</h3>
+                    <p>Instant server setup with one-click modpack installation</p>
+                </div>
+                <div class="feature-item">
+                    <h3><span>🌐</span> GLOBAL LOCATIONS</h3>
+                    <p>Multiple server locations for optimal ping worldwide</p>
+                </div>
+                <div class="feature-item">
+                    <h3><span>💾</span> AUTOMATIC BACKUPS</h3>
+                    <p>Regular backups to protect your world and data</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2025 BANGLA HOST - All rights reserved</p>
+            <p>Contact us on Discord: <a href="https://discord.gg/HPWHYdBvm3">discord.gg/HPWHYdBvm3</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for enhanced interactivity -->
+    <script>
+        // Create floating Minecraft blocks
+        function createMinecraftBlocks() {
+            const container = document.getElementById('minecraftBlocks');
+            const blockTypes = [
+                'grass', 'dirt', 'stone', 'wood', 'brick', 'diamond'
+            ];
+            const blockCount = 15;
+            
+            for (let i = 0; i < blockCount; i++) {
+                const block = document.createElement('div');
+                block.classList.add('minecraft-block');
+                
+                // Random size between 30px and 80px
+                const size = Math.random() * 50 + 30;
+                block.style.width = `${size}px`;
+                block.style.height = `${size}px`;
+                
+                // Random position
+                block.style.left = `${Math.random() * 100}%`;
+                block.style.bottom = `-${size}px`;
+                
+                // Random animation duration between 20s and 40s
+                const duration = Math.random() * 20 + 20;
+                block.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                block.style.animationDelay = `${Math.random() * 10}s`;
+                
+                // Random block type
+                const blockType = blockTypes[Math.floor(Math.random() * blockTypes.length)];
+                let blockColor;
+                switch(blockType) {
+                    case 'grass': blockColor = '#5b9633'; break;
+                    case 'dirt': blockColor = '#8b6b3d'; break;
+                    case 'stone': blockColor = '#7a7a7a'; break;
+                    case 'wood': blockColor = '#8b6b3d'; break;
+                    case 'brick': blockColor = '#b35959'; break;
+                    case 'diamond': blockColor = '#55ffff'; break;
+                    default: blockColor = '#5b9633';
+                }
+                block.style.backgroundColor = blockColor;
+                
+                container.appendChild(block);
+            }
+        }
+        
+        // Scroll to top button
+        function setupScrollButton() {
+            const scrollButton = document.getElementById('scrollIndicator');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollButton.classList.add('visible');
+                } else {
+                    scrollButton.classList.remove('visible');
+                }
+            });
+            
+            scrollButton.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+        
+        // Smooth scrolling for anchor links
+        function setupSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href') === '#') return;
+                    
+                    e.preventDefault();
+                    
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+        
+        // Plan hover effects
+        function setupPlanHoverEffects() {
+            const plans = document.querySelectorAll('.plan');
+            
+            plans.forEach(plan => {
+                plan.addEventListener('mouseenter', () => {
+                    const image = plan.querySelector('.plan-image');
+                    if (image) {
+                        image.style.transform = 'scale(1.05)';
+                        image.style.filter = 'brightness(1.1)';
+                    }
+                });
+                
+                plan.addEventListener('mouseleave', () => {
+                    const image = plan.querySelector('.plan-image');
+                    if (image) {
+                        image.style.transform = 'scale(1)';
+                        image.style.filter = 'brightness(0.9)';
+                    }
+                });
+            });
+        }
+        
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            createMinecraftBlocks();
+            setupScrollButton();
+            setupSmoothScrolling();
+            setupPlanHoverEffects();
+        });
+    </script>
+
+    <!-- Tawk.to Script -->
+    <script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/66f8a00f4cbc4814f7e07aad/1i8tj2fu9';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+</body>
+</html>
